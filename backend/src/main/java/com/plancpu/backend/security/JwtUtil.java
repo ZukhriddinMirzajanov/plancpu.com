@@ -20,11 +20,11 @@ import java.util.Map;
 @Service
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
-    private String secretKey;
+//    @Value("${application.security.jwt.secret-key}")
+    private String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
 
-    @Value("${jwt.expiration-time}")
-    private Long expirationTime;
+//    @Value("${application.security.jwt.expiration}")
+//    private long jwtExpiration = 86400000;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
