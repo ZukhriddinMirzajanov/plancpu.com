@@ -80,8 +80,8 @@ public class TaskController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             if (
                     userDetails.getUsername().equals(task.getCreatedByEmail()) ||
-                    authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("MANAGER")) ||
-                    authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))
+                    userDetails.getAuthorities().equals("MANAGER") ||
+                    userDetails.getAuthorities().equals("ADMIN")
             ) {
                 taskService.delete(id);
                 return ResponseEntity.ok(id);
