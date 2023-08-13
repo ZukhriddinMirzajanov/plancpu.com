@@ -1,6 +1,7 @@
 package com.plancpu.backend.controller;
 
 import com.plancpu.backend.entity.Task;
+import com.plancpu.backend.repository.UserRepository;
 import com.plancpu.backend.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,9 @@ import java.util.Optional;
 public class TaskController {
 
     private final TaskService taskService;
+    private final UserRepository userRepository;
 
-        @GetMapping("/companyId/{id}")
+    @GetMapping("/companyId/{id}")
     public ResponseEntity<List<Task>> getAllTasksByCompanyId(@PathVariable("id") Long companyId) {
         List<Task> tasksByCompanyId = taskService.getAllTasksByCompanyId(companyId);
         if (tasksByCompanyId == null) {
@@ -78,10 +80,11 @@ public class TaskController {
         if (foundTask.isPresent()) {
             Task task = foundTask.get();
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            var user = userRepository.findByEmail(userDetails.getUsername());
             if (
                     userDetails.getUsername().equals(task.getCreatedByEmail()) ||
-                    userDetails.getAuthorities().equals("MANAGER") ||
-                    userDetails.getAuthorities().equals("ADMIN")
+                    user.get().getRole().name().equals("MANAGER") ||
+                    user.get().getRole().name().equals("ADMIN")
             ) {
                 taskService.delete(id);
                 return ResponseEntity.ok(id);
