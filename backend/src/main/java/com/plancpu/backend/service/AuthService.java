@@ -36,6 +36,13 @@ public class AuthService {
         userRepository.save(user);
         var jwtToken = jwtUtil.generateToken(user);
         return AuthenticationResponse.builder()
+                .id(user.getId())
+                .companyId(user.getCompanyId())
+                .companyName(user.getCompanyName())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
                 .token(jwtToken)
                 .build();
     }
@@ -51,6 +58,13 @@ public class AuthService {
                 .orElseThrow();
         var jwtToken = jwtUtil.generateToken(user);
         return AuthenticationResponse.builder()
+                .id(user.getId())
+                .companyId(user.getCompanyId())
+                .companyName(user.getCompanyName())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
                 .token(jwtToken)
                 .build();
     }

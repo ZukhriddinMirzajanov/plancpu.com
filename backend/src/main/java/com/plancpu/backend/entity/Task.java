@@ -22,6 +22,7 @@ public class Task {
     private Long companyId;
     private String createdByEmail;
     private String createdByName;
+    private String assignedBy;
     private String name;
     private int hour;
     private Date createdAt;

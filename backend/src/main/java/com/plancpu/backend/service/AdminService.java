@@ -24,6 +24,11 @@ public class AdminService {
     }
 
     public List<User> getAllManagers() {
-        return userRepository.findByRole("MANAGER");
+        List<User> users = userRepository.findByRole("MANAGER");
+        if (users != null) {
+            return users;
+        } else {
+            return null;
+        }
     }
 }

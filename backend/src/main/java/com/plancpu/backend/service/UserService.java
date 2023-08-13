@@ -21,6 +21,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
@@ -30,8 +31,18 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public Long updateUser(User user) {
+    public AuthenticationResponse updateUser(User user) {
         userRepository.save(user);
-        return user.getId();
+        var jwtToken = jwtUtil.generateToken(user);
+        return AuthenticationResponse.builder()
+                .id(user.getId())
+                .companyId(user.getCompanyId())
+                .companyName(user.getCompanyName())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .token(jwtToken)
+                .build();
     }
 }

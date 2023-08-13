@@ -30,7 +30,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/update{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable("id") Long id, @RequestBody RegisterUserRequest request) {
         Optional<User> userOptional = userService.getUserById(id);
 
@@ -42,7 +42,9 @@ public class UserController {
             user.setFirstName(request.getFirstName());
             user.setLastName(request.getLastName());
             user.setEmail(request.getEmail());
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+            }
             user.setRole(request.getRole());
 
             userService.updateUser(user);

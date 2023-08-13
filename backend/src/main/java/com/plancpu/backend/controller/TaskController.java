@@ -19,7 +19,7 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @GetMapping("/companyId/{id}")
+        @GetMapping("/companyId/{id}")
     public ResponseEntity<List<Task>> getAllTasksByCompanyId(@PathVariable("id") Long companyId) {
         List<Task> tasksByCompanyId = taskService.getAllTasksByCompanyId(companyId);
         if (tasksByCompanyId == null) {
@@ -55,6 +55,7 @@ public class TaskController {
             existingTask.setCompanyId(updatedTask.getCompanyId());
             existingTask.setCreatedByEmail(updatedTask.getCreatedByEmail());
             existingTask.setCreatedByName(updatedTask.getCreatedByName());
+            existingTask.setAssignedBy(updatedTask.getAssignedBy());
             existingTask.setName(updatedTask.getName());
             existingTask.setHour(updatedTask.getHour());
             existingTask.setCreatedAt(updatedTask.getCreatedAt());
@@ -77,7 +78,11 @@ public class TaskController {
         if (foundTask.isPresent()) {
             Task task = foundTask.get();
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            if (userDetails.getUsername().equals(task.getCreatedByEmail()) || authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("MANAGER"))) {
+            if (
+                    userDetails.getUsername().equals(task.getCreatedByEmail()) ||
+                    authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("MANAGER")) ||
+                    authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))
+            ) {
                 taskService.delete(id);
                 return ResponseEntity.ok(id);
             } else {

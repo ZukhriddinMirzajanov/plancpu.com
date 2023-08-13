@@ -30,7 +30,7 @@ public class ManagerController {
         }
     }
 
-    @DeleteMapping("/users/delete{id}")
+    @DeleteMapping("/users/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
         Optional<User> user = userService.getUserById(id);
         Role role = user.get().getRole();
