@@ -23,6 +23,7 @@ public class Task {
     private String createdByEmail;
     private String createdByName;
     private String assignedBy;
+    private String taskReviewer;
     private String name;
     private int hour;
     private Date createdAt;

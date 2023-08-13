@@ -58,6 +58,7 @@ public class TaskController {
             existingTask.setCreatedByEmail(updatedTask.getCreatedByEmail());
             existingTask.setCreatedByName(updatedTask.getCreatedByName());
             existingTask.setAssignedBy(updatedTask.getAssignedBy());
+            existingTask.setTaskReviewer(updatedTask.getTaskReviewer());
             existingTask.setName(updatedTask.getName());
             existingTask.setHour(updatedTask.getHour());
             existingTask.setCreatedAt(updatedTask.getCreatedAt());
