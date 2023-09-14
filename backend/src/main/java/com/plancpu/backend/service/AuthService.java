@@ -25,8 +25,6 @@ public class AuthService {
 
     public AuthenticationResponse register(RegisterUserRequest request) {
         var user = User.builder()
-                .companyId(request.getCompanyId())
-                .companyName(request.getCompanyName())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
@@ -37,8 +35,6 @@ public class AuthService {
         var jwtToken = jwtUtil.generateToken(user);
         return AuthenticationResponse.builder()
                 .id(user.getId())
-                .companyId(user.getCompanyId())
-                .companyName(user.getCompanyName())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
@@ -59,8 +55,6 @@ public class AuthService {
         var jwtToken = jwtUtil.generateToken(user);
         return AuthenticationResponse.builder()
                 .id(user.getId())
-                .companyId(user.getCompanyId())
-                .companyName(user.getCompanyName())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())

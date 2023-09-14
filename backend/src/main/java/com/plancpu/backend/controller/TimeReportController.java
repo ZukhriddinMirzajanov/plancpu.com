@@ -1,8 +1,11 @@
 package com.plancpu.backend.controller;
 
+import com.plancpu.backend.entity.Task;
 import com.plancpu.backend.entity.TimeReport;
+import com.plancpu.backend.entity.User;
 import com.plancpu.backend.repository.UserRepository;
 import com.plancpu.backend.service.TimeReportService;
+import com.plancpu.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ public class TimeReportController {
 
     private final TimeReportService timeReportService;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/companyId/{id}")
     public ResponseEntity<List<TimeReport>> getAllTimeReportsByCompanyId(@PathVariable("id") Long companyId) {
@@ -31,9 +35,19 @@ public class TimeReportController {
         }
     }
 
+    @GetMapping("/userId/{id}")
+    public ResponseEntity<List<TimeReport>> getAllTimeReportsByUserId(@PathVariable("id") Long userId) {
+        List<TimeReport> timeReportsByUserId = timeReportService.getAllTimeReportsByUserId(userId);
+        if (timeReportsByUserId == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(timeReportsByUserId);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<TimeReport>> getTimeReportById(@PathVariable("id") Long id) {
-        Optional<TimeReport> timeReport = timeReportService.findTimeReportById(id);
+        Optional<TimeReport> timeReport = timeReportService.getTimeReportById(id);
         if (timeReport == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -48,18 +62,16 @@ public class TimeReportController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<TimeReport> updateTimeReport(@PathVariable("id") Long id, @RequestBody TimeReport updatedTimeReport) {
-        Optional<TimeReport> foundTimeReport = timeReportService.findTimeReportById(id);
+        Optional<TimeReport> foundTimeReport = timeReportService.getTimeReportById(id);
 
         if (foundTimeReport.isPresent()) {
             TimeReport existingTimeReport = foundTimeReport.get();
 
             // Update the fields of the existing time report with the values from the updated time report
-            existingTimeReport.setCompanyId(updatedTimeReport.getCompanyId());
-            existingTimeReport.setCreatedByEmail(updatedTimeReport.getCreatedByEmail());
-            existingTimeReport.setCreatedByName(updatedTimeReport.getCreatedByName());
             existingTimeReport.setTitle(updatedTimeReport.getTitle());
             existingTimeReport.setHour(updatedTimeReport.getHour());
             existingTimeReport.setCreatedAt(updatedTimeReport.getCreatedAt());
+            existingTimeReport.setUser(updatedTimeReport.getUser());
 
             // Save the updated time report
             timeReportService.createTimeReport(existingTimeReport);
@@ -70,16 +82,26 @@ public class TimeReportController {
         }
     }
 
+    @PutMapping("/{timeReportId}/user/{userId}")
+    public TimeReport addUserToTimeReport(
+            @PathVariable Long timeReportId,
+            @PathVariable Long userId
+    ) {
+        TimeReport timeReport = timeReportService.getTimeReportById(timeReportId).get();
+        User user = userService.getUserById(userId).get();
+        timeReport.setUser(user);
+        return timeReportService.createTimeReport(timeReport);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteTimeReportById(@PathVariable("id") Long id, Authentication authentication) {
-        Optional<TimeReport> foundTimrReport = timeReportService.findTimeReportById(id);
+        Optional<TimeReport> foundTimrReport = timeReportService.getTimeReportById(id);
         if (foundTimrReport.isPresent()) {
             TimeReport timeReport = foundTimrReport.get();
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             var user = userRepository.findByEmail(userDetails.getUsername());
             if (
-                    userDetails.getUsername().equals(timeReport.getCreatedByEmail()) ||
+                    userDetails.getUsername().equals(timeReport.getUser().getEmail()) ||
                             user.get().getRole().name().equals("MANAGER") ||
                             user.get().getRole().name().equals("ADMIN")
             ) {

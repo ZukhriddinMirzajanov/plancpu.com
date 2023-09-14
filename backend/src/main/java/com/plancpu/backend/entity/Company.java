@@ -14,22 +14,19 @@ import java.util.Date;
 @Builder
 @Data
 @Entity
-@Table(name = "app_time_report")
-public class TimeReport {
+@Table(name = "app_company")
+public class Company {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "title field is required")
-    private String title;
+    @NotBlank(message = "Company name is required")
+    private String name;
 
-    @NotBlank(message = "hour field is required")
-    private int hour;
+    @NotBlank(message = "isActive field is required")
+    private Boolean isActive;
 
-    @NotBlank(message = "createdAt field is required")
-    private Date createdAt;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @NotBlank(message = "joinedDate field is required")
+    private Date joinedDate;
 }

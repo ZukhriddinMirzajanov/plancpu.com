@@ -26,12 +26,7 @@ public class AdminController {
 
     @GetMapping("/managers")
     public ResponseEntity<List<User>> getAllManagers() {
-        if (adminService.getAllManagers() != null) {
-            return ResponseEntity.ok(adminService.getAllManagers());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
+        return ResponseEntity.ok(adminService.getAllManagers());
     }
 
     @DeleteMapping("/users/delete/{id}")

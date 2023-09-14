@@ -36,8 +36,6 @@ public class UserService {
         var jwtToken = jwtUtil.generateToken(user);
         return AuthenticationResponse.builder()
                 .id(user.getId())
-                .companyId(user.getCompanyId())
-                .companyName(user.getCompanyName())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())

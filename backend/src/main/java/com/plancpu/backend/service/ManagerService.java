@@ -9,18 +9,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ManagerService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
 
     public List<User> getUsersByCompanyId(Long id) {
-        return userRepository.findByCompanyId(id);
+        List<User> filteredUsers = userRepository.findAll().stream().filter(user -> (user.getCompany().getId() == id && user.getRole().name() != "MANAGER")).collect(Collectors.toList());
+        return filteredUsers;
 
     }
 }

@@ -1,12 +1,16 @@
 package com.plancpu.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,14 +23,35 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long companyId;
-    private String createdByEmail;
-    private String createdByName;
-    private String assignedBy;
-    private String taskReviewer;
+
+    @NotBlank(message = "name field is required")
     private String name;
-    private int hour;
-    private Date createdAt;
-    private int statusOfTask;
+
+    @NotBlank(message = "description field is required")
     private String description;
+
+    @NotBlank(message = "hour field is required")
+    private int hour;
+
+    @NotBlank(message = "createdAt field is required")
+    private Date createdAt;
+
+    @NotBlank(message = "statusOfTask field is required")
+    private int statusOfTask;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userCreated_id")
+    private User userCreated;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userWorked_id")
+    private User userWorked;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userReviewed_id")
+    private User userReviewed;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "companyProject_id")
+    private CompanyProject companyProject;
 }

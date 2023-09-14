@@ -1,5 +1,6 @@
 package com.plancpu.backend.repository;
 
+import com.plancpu.backend.entity.Role;
 import com.plancpu.backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,7 +13,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
-    List<User> findByCompanyId(Long companyId);
-
-    List<User> findByRole(String role);
+    List<User> findByRole(Role role);
 }

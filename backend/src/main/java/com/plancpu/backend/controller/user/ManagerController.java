@@ -35,12 +35,8 @@ public class ManagerController {
         Optional<User> user = userService.getUserById(id);
         Role role = user.get().getRole();
         if (user.isPresent()) {
-            if(role.name() == "USER") {
-                userService.deleteUserById(id);
-                return ResponseEntity.ok("Id: " + id);
-            } else {
-                return ResponseEntity.badRequest().build();
-            }
+            userService.deleteUserById(id);
+            return ResponseEntity.ok("Id: " + id);
 
         } else {
             return ResponseEntity.notFound().build();

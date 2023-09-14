@@ -1,6 +1,9 @@
 package com.plancpu.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +13,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,14 +28,29 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long companyId;
-    private String companyName;
+    @NotBlank(message = "First name is required")
     private String firstName;
+    @NotBlank(message = "Last name is required")
     private String lastName;
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
+    @NotBlank(message = "Password is required")
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "companyProjects",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "companyProject_id")
+    )
+    private List<CompanyProject> companyProjects;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
