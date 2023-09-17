@@ -18,7 +18,12 @@ public class ManagerService {
     private final UserRepository userRepository;
 
     public List<User> getUsersByCompanyId(Long id) {
-        List<User> filteredUsers = userRepository.findAll().stream().filter(user -> (user.getCompany().getId() == id && user.getRole().name() != "MANAGER")).collect(Collectors.toList());
+        List<User> filteredUsers = userRepository.findAll().stream().filter(user -> (user.getCompany().getId() == id )).collect(Collectors.toList());
+        return filteredUsers;
+
+    }
+    public List<User> getAllUsersByCompanyId(Long id) {
+        List<User> filteredUsers = userRepository.findAll().stream().filter(user -> (user.getCompany().getId() == id)).collect(Collectors.toList());
         return filteredUsers;
 
     }

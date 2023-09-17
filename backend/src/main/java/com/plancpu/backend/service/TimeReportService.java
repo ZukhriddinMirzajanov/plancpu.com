@@ -24,7 +24,9 @@ public class TimeReportService {
     }
 
     public List<TimeReport> getAllTimeReportsByUserId(Long userId) {
-        List<TimeReport> filteredTimeReports = timeReportRepository.findAll().stream().filter(timeReport -> timeReport.getUser().getId() == userId).collect(Collectors.toList());
+        List<TimeReport> filteredTimeReports = timeReportRepository.findAll()
+                .stream().filter(timeReport -> timeReport.getUser().getId() == userId)
+                .collect(Collectors.toList());
         return filteredTimeReports;
     }
 
@@ -33,6 +35,8 @@ public class TimeReportService {
     }
 
     public Long delete(Long id) {
+        TimeReport timeReport = timeReportRepository.findById(id).get();
+        timeReport.setUser(null);
         timeReportRepository.deleteById(id);
         return id;
     }

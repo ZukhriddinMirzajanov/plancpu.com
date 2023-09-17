@@ -28,6 +28,10 @@ public class UserService {
     }
 
     public void deleteUserById(Long id) {
+        User user = userRepository.findById(id).get();
+        user.setCompany(null);
+        user.setCompanyProjects(null);
+        userRepository.save(user);
         userRepository.deleteById(id);
     }
 

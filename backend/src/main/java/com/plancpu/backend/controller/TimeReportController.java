@@ -71,7 +71,6 @@ public class TimeReportController {
             existingTimeReport.setTitle(updatedTimeReport.getTitle());
             existingTimeReport.setHour(updatedTimeReport.getHour());
             existingTimeReport.setCreatedAt(updatedTimeReport.getCreatedAt());
-            existingTimeReport.setUser(updatedTimeReport.getUser());
 
             // Save the updated time report
             timeReportService.createTimeReport(existingTimeReport);

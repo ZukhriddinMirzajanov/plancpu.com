@@ -1,5 +1,6 @@
 package com.plancpu.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,4 +31,12 @@ public class Company {
 
     @NotBlank(message = "joinedDate field is required")
     private Date joinedDate;
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+//    private List<CompanyProject> companyProjects;
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+//    private List<User> users;
 }

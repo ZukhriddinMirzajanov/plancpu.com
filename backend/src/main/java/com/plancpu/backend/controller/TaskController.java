@@ -36,6 +36,12 @@ public class TaskController {
         return ResponseEntity.ok(tasksByCompanyProjectId);
     }
 
+    @GetMapping("/statusZeroTasksByCompanyProjectId/{id}")
+    public ResponseEntity<List<Task>> getAllStatusZeroTasksByCompanyProjectId(@PathVariable("id") Long companyProjectId) {
+        List<Task> tasksByCompanyProjectId = taskService.getAllStatusZeroTasksByCompanyProjectId(companyProjectId);
+        return ResponseEntity.ok(tasksByCompanyProjectId);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Task>> getTaskById(@PathVariable("id") Long id) {
         Optional<Task> task = taskService.getTaskById(id);
@@ -58,18 +64,11 @@ public class TaskController {
         if (foundTask.isPresent()) {
             Task existingTask = foundTask.get();
 
-            // Update the fields of the existing task with the values from the updated task
             existingTask.setName(updatedTask.getName());
-            existingTask.setHour(updatedTask.getHour());
-            existingTask.setCreatedAt(updatedTask.getCreatedAt());
-            existingTask.setStatusOfTask(updatedTask.getStatusOfTask());
             existingTask.setDescription(updatedTask.getDescription());
-            existingTask.setCompanyProject(updatedTask.getCompanyProject());
-            existingTask.setUserCreated(updatedTask.getUserCreated());
-            existingTask.setUserWorked(updatedTask.getUserWorked());
-            existingTask.setUserReviewed(updatedTask.getUserReviewed());
+            existingTask.setHour(updatedTask.getHour());
+            existingTask.setStatusOfTask(updatedTask.getStatusOfTask());
 
-            // Save the updated task
             taskService.createTask(existingTask);
 
             return ResponseEntity.ok(existingTask);

@@ -31,12 +31,29 @@ public class TaskService {
             return taskRepository.findAll();
         }
     }
+    public List<Task> getAllStatusZeroTasksByCompanyProjectId(Long companyProjectId) {
+        List<Task> tasks = taskRepository.findAll();
+        if (tasks.size() > 0) {
+            List<Task> filteredTasks = taskRepository.findAll()
+                    .stream()
+                    .filter(task -> task.getCompanyProject().getId() == companyProjectId && task.getStatusOfTask() == 0)
+                    .collect(Collectors.toList());
+            return filteredTasks;
+        } else {
+            return taskRepository.findAll();
+        }
+    }
 
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }
 
     public Long delete(Long id) {
+        Task task = taskRepository.findById(id).get();
+        task.setCompanyProject(null);
+        task.setUserCreated(null);
+        task.setUserWorked(null);
+        task.setUserReviewed(null);
         taskRepository.deleteById(id);
         return id;
     }
