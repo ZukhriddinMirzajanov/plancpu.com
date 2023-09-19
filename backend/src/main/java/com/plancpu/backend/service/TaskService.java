@@ -24,7 +24,7 @@ public class TaskService {
         if (tasks.size() > 0) {
             List<Task> filteredTasks = taskRepository.findAll()
                     .stream()
-                    .filter(task -> task.getCompanyProject().getId() == companyProjectId)
+                    .filter(task -> task.getCompanyProject() != null && task.getCompanyProject().getId() == companyProjectId)
                     .collect(Collectors.toList());
             return filteredTasks;
         } else {

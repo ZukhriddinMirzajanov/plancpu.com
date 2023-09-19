@@ -68,6 +68,7 @@ public class TaskController {
             existingTask.setDescription(updatedTask.getDescription());
             existingTask.setHour(updatedTask.getHour());
             existingTask.setStatusOfTask(updatedTask.getStatusOfTask());
+            existingTask.setLastUpdatedDate(updatedTask.getLastUpdatedDate());
 
             taskService.createTask(existingTask);
 
@@ -91,22 +92,26 @@ public class TaskController {
     @PutMapping("/{taskId}/userWorked/{userWorkedId}")
     public Task addUserWorkedToTask(
             @PathVariable Long taskId,
-            @PathVariable Long userWorkedId
+            @PathVariable Long userWorkedId,
+            @RequestBody Task updatedTask
     ) {
         Task task = taskService.getTaskById(taskId).get();
         User user = userService.getUserById(userWorkedId).get();
         task.setUserWorked(user);
+        task.setLastUpdatedDate(updatedTask.getLastUpdatedDate());
         return taskService.createTask(task);
     }
 
     @PutMapping("/{taskId}/userReviewed/{userReviewedId}")
     public Task addUserReviewedToTask(
             @PathVariable Long taskId,
-            @PathVariable Long userReviewedId
+            @PathVariable Long userReviewedId,
+            @RequestBody Task updatedTask
     ) {
         Task task = taskService.getTaskById(taskId).get();
         User user = userService.getUserById(userReviewedId).get();
         task.setUserReviewed(user);
+        task.setLastUpdatedDate(updatedTask.getLastUpdatedDate());
         return taskService.createTask(task);
     }
 

@@ -39,6 +39,9 @@ public class Task {
     @NotBlank(message = "statusOfTask field is required")
     private int statusOfTask;
 
+    @NotBlank(message = "finishedDate field is required")
+    private Date lastUpdatedDate;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userCreated_id")
     private User userCreated;

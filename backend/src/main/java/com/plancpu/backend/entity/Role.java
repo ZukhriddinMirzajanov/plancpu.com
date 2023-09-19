@@ -14,7 +14,14 @@ import static com.plancpu.backend.entity.Permission.*;
 @RequiredArgsConstructor
 public enum Role {
     USER(Collections.EMPTY_SET),
-    TEAM_LEAD(Collections.EMPTY_SET),
+    TEAM_LEAD(
+            Set.of(
+                    MANAGER_READ,
+                    MANAGER_CREATE,
+                    MANAGER_UPDATE,
+                    MANAGER_DELETE
+            )
+    ),
     MANAGER(
             Set.of(
                     MANAGER_READ,
