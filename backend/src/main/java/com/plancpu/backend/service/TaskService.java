@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final WebsocketService websocketService;
 
     public Optional<Task> getTaskById(Long id) {
         return taskRepository.findById(id);
@@ -45,7 +46,9 @@ public class TaskService {
     }
 
     public Task createTask(Task task) {
-        return taskRepository.save(task);
+        Task createdTask = taskRepository.save(task);
+        websocketService.sendMessage("updated");
+        return createdTask;
     }
 
     public Long delete(Long id) {
@@ -55,6 +58,7 @@ public class TaskService {
         task.setUserWorked(null);
         task.setUserReviewed(null);
         taskRepository.deleteById(id);
+        websocketService.sendMessage("updated");
         return id;
     }
 }
