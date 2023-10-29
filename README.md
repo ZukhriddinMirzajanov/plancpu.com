@@ -1,7 +1,7 @@
-# Plancpu Backen Code. 
+# Plancpu Backend Code. 
 #### Web Link to Frontend Code: https://github.com/ZukhriddinMirzajanov/plancpu.com_frontend
 
-Plancpu is a software management platform, built in Java framework Spring Boot, React JS, PostgreSQL and deployed cloud
+Plancpu is a software management platform, built in Java Spring Boot, React JS, PostgreSQL and deployed cloud
 
 #### Web Link: https://plancpu.com
 
