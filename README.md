@@ -14,6 +14,7 @@ Plancpu is a software management platform, built in Java framework Spring Boot, 
 |-----------------------------------------|-----------------------------------------|
 | ![Image 1](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(192).png?raw=true) | ![Image 2](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(193).png?raw=true) |
 
+|  Pages                              |                                 |
 |-----------------------------------------|-----------------------------------------|
 | ![Image 3](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(149).png?raw=true) | ![Image 4](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(150).png?raw=true) |
 | ![Image 5](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(151).png?raw=true) | ![Image 6](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(152).png?raw=true) |
