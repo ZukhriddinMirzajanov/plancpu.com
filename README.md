@@ -24,9 +24,8 @@ Plancpu is a software management platform, built in Java framework Spring Boot, 
 | ![Image 13](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(157).png?raw=true) | ![Image 14](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(159).png?raw=true) |
 | ![Image 15](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(160).png?raw=true) | ![Image 16](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(161).png?raw=true) |
 | ![Image 17](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(162).png?raw=true) | ![Image 18](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(162).png?raw=true) |
-| ![Image 19](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(164).png?raw=true) | ![Image 20](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(164).png?raw=true) |
+| ![Image 19](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(164).png?raw=true) | ![Image 20](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(168).png?raw=true) |
 | ![Image 21](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(166).png?raw=true) | ![Image 22](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(167).png?raw=true) |
-| ![Image 23](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(168).png?raw=true) | ![Image 24](https://github.com/ZukhriddinMirzajanov/plancpu_photos/blob/main/Screenshot%20(167).png?raw=true) |
 
 ## Features
 - User Authentication:
